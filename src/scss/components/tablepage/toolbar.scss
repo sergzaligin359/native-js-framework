@@ -1,0 +1,21 @@
+@import "../../commons/var.scss";
+@import "../../commons/mixin.scss";
+
+.excel__toolbar {
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+	padding: 0 4px;
+	position: absolute;
+	top: $header-height;
+	right: 0;
+	left: 0;
+	height: $toolbar-height;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+
+	& .button{
+		line-height: 0;
+		@include button(green);
+	}    
+}
