@@ -24,6 +24,20 @@
 		border: 1px solid $border-color;
 		border-top: none;
 		background: #f8f9fa;
+		position: relative;
+		& .row-resize{
+			height: 4px;
+			background: #3c74ff;
+			opacity: 0;
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			right: 0;
+			&:hover{
+				opacity: 1;
+				cursor: row-resize;
+			}
+		}
 	}
 
 	& .row-data{
@@ -41,6 +55,20 @@
 		border-top: none;
 		border-left: none;
 		height: 100%;
+		position: relative;
+		.col-resize{
+			width: 4px;
+			background: #3c74ff;
+			opacity: 0;
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			right: 0;
+			&:hover{
+				opacity: 1;
+				cursor: col-resize;
+			}
+		}
 	}
 
 	& .cell{

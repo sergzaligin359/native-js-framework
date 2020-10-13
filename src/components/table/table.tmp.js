@@ -7,15 +7,22 @@ const createCell = () => {
       <div class="cell" contenteditable spellcheck="false"></div>
   `;
 };
-const createCol = (el) => {
+const createColumn = (el) => {
   return `
-      <div class="column">${el}</div>
+      <div class="column">
+        ${el}
+        <div class="col-resize" data-resize="col"></div>
+      </div>
   `;
 };
 const createRow = (idx, content) => {
+  const resizer = idx ? '<div class="row-resize" data-resize="row"></div>': '';
   return `
       <div class="row">
-        <div class="row-info">${idx ? idx : ''}</div>
+        <div class="row-info">
+          ${idx ? idx : ''}
+          ${ resizer }
+        </div>
         <div class="row-data">${content}</div>
       </div>
   `;
@@ -28,7 +35,7 @@ export const createTable = (rowsCnt=15) => {
   const colsCnt = CODES.Z - CODES.A + 1;
   const cols = new Array(colsCnt).fill('')
       .map(toChar)
-      .map(createCol).join('');
+      .map(createColumn).join('');
   const rows = [];
   rows.push(createRow(null, cols));
   for (let i = 0; i<= rowsCnt; i++) {
