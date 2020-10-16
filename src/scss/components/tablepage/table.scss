@@ -33,8 +33,9 @@
 			left: 0;
 			bottom: 0;
 			right: 0;
+			z-index: 1000px;
 			&:hover{
-				opacity: 1;
+				opacity: 1 !important;
 				cursor: row-resize;
 			}
 		}
@@ -57,6 +58,7 @@
 		height: 100%;
 		position: relative;
 		.col-resize{
+			z-index: 1000px;
 			width: 4px;
 			background: #3c74ff;
 			opacity: 0;
