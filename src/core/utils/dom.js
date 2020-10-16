@@ -9,9 +9,34 @@ class Dom {
   constructor(selector) {
     this.$el = typeof selector === 'string' ? document.querySelector(selector) : selector;
   }
-
   /**
-   * Method sets or gets HTML string
+   * Set css style
+   * @param {object} styles
+   */
+  css(styles={}) {
+    for (const key in styles) {
+      if (Object.prototype.hasOwnProperty.call(styles, key)) {
+        this.$el.style[key] = styles[key];
+      }
+    }
+  }
+  /**
+   * Getter for data attr
+   * @return {string}
+   */
+  get data() {
+    return this.$el.dataset;
+  }
+  /**
+   * Return all DOM elements by selector
+   * @param {string} selector
+   * @return {DOMCollections}
+   */
+  findAll(selector) {
+    return this.$el.querySelectorAll(selector);
+  }
+  /**
+   * Sets or gets HTML string
    * @param {string | false} html
    * @return {instance}
    */
@@ -24,7 +49,7 @@ class Dom {
     }
   }
   /**
-   * Method cleans HTML string
+   * Cleans HTML string
    * @return {instance}
    */
   clearHTML() {
@@ -32,7 +57,7 @@ class Dom {
     return this;
   }
   /**
-   * Method appends DOM elements
+   * Appends DOM elements
    * @param {DOMnode} DOMnode
    * @return {instance}
    */
@@ -47,8 +72,18 @@ class Dom {
     }
     return this;
   }
+  closest(selector) {
+    return $(this.$el.closest(selector));
+  }
   /**
-   * Method for adds listen event
+   * Return coords DOM element
+   * @return {object}
+   */
+  getCoords() {
+    return this.$el.getBoundingClientRect();
+  }
+  /**
+   * Adds listen event
    * @param {string} eventType
    * @param {function} callback
    * @return {void}
@@ -57,7 +92,7 @@ class Dom {
     this.$el.addEventListener(eventType, callback);
   }
   /**
-   * Method for remove listen event
+   * Remove listen event
    * @param {string} eventType
    * @param {function} callback
    * @return {void}
@@ -68,9 +103,9 @@ class Dom {
 }
 
 /**
- * Function instance object class Dom
+ * Instance object class Dom
  * @param {string | DOMnode} selector
- * @return {Object}
+ * @return {object}
  */
 export const $ = (selector) => new Dom(selector);
 
