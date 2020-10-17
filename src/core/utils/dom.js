@@ -28,6 +28,45 @@ class Dom {
     return this.$el.dataset;
   }
   /**
+   * Get id for data attr
+   * @param {bool} parse
+   * @return {string}
+   */
+  id(parse) {
+    if (parse) {
+      const parsed = this.id().split(':');
+      return {
+        row: +parsed[0],
+        col: +parsed[1],
+      };
+    }
+    return this.data.id;
+  }
+  /**
+   * Add attr class for DOM element
+   * @param {string} className
+   * @return {void}
+   */
+  addClass(className) {
+    this.$el.classList.add(className);
+  }
+  /**
+   * Remove attr class for DOM element
+   * @param {string} className
+   * @return {void}
+   */
+  removeClass(className) {
+    this.$el.classList.remove(className);
+  }
+  /**
+   * ReturnDOM element by selector
+   * @param {string} selector
+   * @return {DOMCollections}
+   */
+  find(selector) {
+    return $(this.$el.querySelector(selector));
+  }
+  /**
    * Return all DOM elements by selector
    * @param {string} selector
    * @return {DOMCollections}
