@@ -10,6 +10,14 @@ class Dom {
     this.$el = typeof selector === 'string' ? document.querySelector(selector) : selector;
   }
   /**
+   * Add focus for DOM element
+   * @return {instance}
+   */
+  focus() {
+    this.$el.focus();
+    return this;
+  }
+  /**
    * Set css style
    * @param {object} styles
    */
