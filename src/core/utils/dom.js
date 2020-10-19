@@ -10,6 +10,29 @@ class Dom {
     this.$el = typeof selector === 'string' ? document.querySelector(selector) : selector;
   }
   /**
+   * Add text for DOM element
+   * @param {string} text
+   * @return {instance}
+   */
+  text(text) {
+    if (typeof text === 'string') {
+      this.$el.textContent = text;
+      return this;
+    }
+    if (this.$el.tagName.toLowerCase() === 'input') {
+      return this.$el.value.trim();
+    }
+    return this.$el.textContent.trim();
+  }
+  /**
+   * Add focus for DOM element
+   * @return {instance}
+   */
+  focus() {
+    this.$el.focus();
+    return this;
+  }
+  /**
    * Set css style
    * @param {object} styles
    */
@@ -26,6 +49,45 @@ class Dom {
    */
   get data() {
     return this.$el.dataset;
+  }
+  /**
+   * Get id for data attr
+   * @param {bool} parse
+   * @return {string}
+   */
+  id(parse) {
+    if (parse) {
+      const parsed = this.id().split(':');
+      return {
+        row: +parsed[0],
+        col: +parsed[1],
+      };
+    }
+    return this.data.id;
+  }
+  /**
+   * Add attr class for DOM element
+   * @param {string} className
+   * @return {void}
+   */
+  addClass(className) {
+    this.$el.classList.add(className);
+  }
+  /**
+   * Remove attr class for DOM element
+   * @param {string} className
+   * @return {void}
+   */
+  removeClass(className) {
+    this.$el.classList.remove(className);
+  }
+  /**
+   * ReturnDOM element by selector
+   * @param {string} selector
+   * @return {DOMCollections}
+   */
+  find(selector) {
+    return $(this.$el.querySelector(selector));
   }
   /**
    * Return all DOM elements by selector

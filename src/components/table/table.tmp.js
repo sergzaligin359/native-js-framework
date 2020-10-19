@@ -2,9 +2,17 @@ const CODES = {
   A: 65,
   Z: 90,
 };
-const createCell = (_, col) => {
+const createCell = (row, col) => {
   return `
-      <div class="cell" contenteditable spellcheck="false" data-col="${col}"></div>
+      <div 
+        class="cell" 
+        contenteditable 
+        spellcheck="false" 
+        data-col="${col}"
+        data-type="cell"
+        data-id="${row}:${col}"
+      >
+      </div>
   `;
 };
 const createColumn = (el, index) => {
@@ -40,12 +48,12 @@ export const createTable = (rowsCnt=15) => {
       .join('');
   const rows = [];
   rows.push(createRow(null, cols));
-  for (let i = 0; i<= rowsCnt; i++) {
+  for (let row = 0; row <= rowsCnt; row++) {
     const cells = new Array(colsCnt)
         .fill('')
-        .map(createCell)
+        .map((_, col) => createCell(row, col))
         .join('');
-    rows.push(createRow(i + 1, cells));
+    rows.push(createRow(row + 1, cells));
   }
   return rows.join('');
 };
