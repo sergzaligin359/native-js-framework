@@ -10,6 +10,21 @@ class Dom {
     this.$el = typeof selector === 'string' ? document.querySelector(selector) : selector;
   }
   /**
+   * Add text for DOM element
+   * @param {string} text
+   * @return {instance}
+   */
+  text(text) {
+    if (typeof text === 'string') {
+      this.$el.textContent = text;
+      return this;
+    }
+    if (this.$el.tagName.toLowerCase() === 'input') {
+      return this.$el.value.trim();
+    }
+    return this.$el.textContent.trim();
+  }
+  /**
    * Add focus for DOM element
    * @return {instance}
    */
