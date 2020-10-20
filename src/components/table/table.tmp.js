@@ -2,7 +2,10 @@ const CODES = {
   A: 65,
   Z: 90,
 };
-const createCell = (row, col) => {
+
+const DEFAULT_WIDTH = 120;
+
+const createCell = (state, row, col) => {
   return `
       <div 
         class="cell" 
@@ -15,14 +18,16 @@ const createCell = (row, col) => {
       </div>
   `;
 };
-const createColumn = (el, index) => {
+
+const createColumn = ({col, index, width}) => {
   return `
-      <div class="column" data-type="resazible" data-col="${index}">
-        ${el}
+      <div class="column" data-type="resazible" data-col="${index}" style="width: ${width}">
+        ${col}
         <div class="col-resize" data-resize="col"></div>
       </div>
   `;
 };
+
 const createRow = (idx, content) => {
   const resizer = idx ? '<div class="row-resize" data-resize="row"></div>': '';
   return `
@@ -35,15 +40,31 @@ const createRow = (idx, content) => {
       </div>
   `;
 };
+
 const toChar = (_, idx) => {
   return String.fromCharCode(CODES.A + idx);
 };
 
-export const createTable = (rowsCnt=15) => {
+const getWidth = (state, index) => {
+  return (state[index] || DEFAULT_WIDTH) + 'px';
+};
+
+const withWidthFrom = (state) => {
+  return (col, index) => {
+    return {
+      col,
+      index,
+      width: getWidth(state.colState, index),
+    };
+  };
+};
+
+export const createTable = (rowsCnt=15, state={}) => {
   const colsCnt = CODES.Z - CODES.A + 1;
   const cols = new Array(colsCnt)
       .fill('')
       .map(toChar)
+      .map(withWidthFrom(state))
       .map(createColumn)
       .join('');
   const rows = [];
@@ -51,7 +72,7 @@ export const createTable = (rowsCnt=15) => {
   for (let row = 0; row <= rowsCnt; row++) {
     const cells = new Array(colsCnt)
         .fill('')
-        .map((_, col) => createCell(row, col))
+        .map((_, col) => createCell(state, row, col))
         .join('');
     rows.push(createRow(row + 1, cells));
   }

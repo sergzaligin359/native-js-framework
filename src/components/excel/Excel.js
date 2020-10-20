@@ -7,6 +7,7 @@ export class Excel {
     this.$el = $(selector);
     this.components = options.components || [];
     this.emitter = new Emitter;
+    this.store = options.store;
   }
   /**
    * create DOM elements and structure formation this DOM elements
@@ -18,6 +19,7 @@ export class Excel {
       const $el = $.create('div', Component.className);
       const componentOptions = {
         emitter: this.emitter,
+        store: this.store,
       };
       const component = new Component($el, componentOptions);
       // Debug
